@@ -1,4 +1,4 @@
-import ChartBox from "@components/ChartBox";
+import ChartBox from "@components/ChartBox/ChartBox";
 import SelectBar from "@components/SelectBar";
 import { Box, Container, Flex, Heading } from "@radix-ui/themes";
 
