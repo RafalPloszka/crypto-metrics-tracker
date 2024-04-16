@@ -1,4 +1,5 @@
 import Select from "react-select";
+import { Flex, Box, Text, Button } from "@radix-ui/themes";
 
 interface Option {
   readonly value: string;
@@ -17,7 +18,7 @@ const solanaOption: Option = { value: "sol", label: "Solana" };
 
 const comingSoonOptions: Option[] = [
   { value: "avax", label: "Avalanche", isDisabled: true },
-  { value: "bnb", label: "BNB", isDisabled: true },
+  { value: "BSC", label: "BSC", isDisabled: true },
   { value: "atom", label: "Cosmos", isDisabled: true },
 ];
 
@@ -58,26 +59,34 @@ const dateRangeOptions: OptionsGroup[] = [
 
 const SelectBar = () => {
   return (
-    <>
-      <span>Blockchain:</span>
-      <Select
-        options={optionsWithEth}
-        isOptionDisabled={(option: Option) => !!option.isDisabled}
-      />
-      <br />
-      <span>Compare with:</span>
-      <Select
-        options={optionsWithSol}
-        isOptionDisabled={(option: Option) => !!option.isDisabled}
-        isMulti
-      />
-      <br />
-      <span>Date range:</span>
-      <Select
-        options={dateRangeOptions}
-        isOptionDisabled={(option: Option) => !!option.isDisabled}
-      />
-    </>
+    <Flex gap="8" align="center">
+      <Box width="200px">
+        <Text>Blockchain</Text>
+        <Select
+          options={optionsWithEth}
+          isOptionDisabled={(option: Option) => !!option.isDisabled}
+        />
+      </Box>
+
+      <Box width="200px">
+        <Text>Compare with</Text>
+        <Select
+          options={optionsWithSol}
+          isOptionDisabled={(option: Option) => !!option.isDisabled}
+          isMulti
+        />
+      </Box>
+
+      <Box width="200px">
+        <Text>Date range</Text>
+        <Select
+          options={dateRangeOptions}
+          isOptionDisabled={(option: Option) => !!option.isDisabled}
+        />
+      </Box>
+
+      <Button size="2">Compare</Button>
+    </Flex>
   );
 };
 
