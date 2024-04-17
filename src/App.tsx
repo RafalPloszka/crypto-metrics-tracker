@@ -9,7 +9,13 @@ function App() {
         <Heading mb="3">Crypto metrics tracker</Heading>
         <SelectBar />
         <Container size="3">
-          <ChartBox />
+          <ChartBox
+            params={{
+              chainName: "ethereum",
+              period: "last year",
+              compareWith: ["solana"],
+            }}
+          />
         </Container>
       </Box>
     </Flex>

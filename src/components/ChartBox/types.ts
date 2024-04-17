@@ -1,3 +1,9 @@
+export interface RequestBody {
+  chainName: string;
+  period: string;
+  compareWith: string[];
+}
+
 export interface RawMetricData {
   blockchain: {
     tg_growth_index: {
