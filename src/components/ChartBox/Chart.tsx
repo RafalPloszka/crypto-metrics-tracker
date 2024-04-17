@@ -79,20 +79,20 @@ const Chart = ({ data, compareWith }: ChartProps) => {
             <XAxis dataKey="date" tick={{ fontSize: 10 }} minTickGap={20} />
             <YAxis tick={{ fontSize: 12 }} />
             <Tooltip />
-            <Legend height={16} />
+            <Legend height={16} wrapperStyle={{ fontSize: "12px" }} />
             <Line
               type="monotone"
               dataKey="ethereumValue"
               name="Ethereum"
               stroke="#37367b"
-              dot={false}
+              dot={{ fill: "#37367b", strokeWidth: 0, r: 2 }} // Adjust the 'r' value for smaller dot size
             />
             <Line
               type="monotone"
               dataKey="cumulativeValue"
               name={renderCompareWithLabel(compareWith)}
               stroke="#65BA74"
-              dot={false}
+              dot={{ fill: "#65BA74", strokeWidth: 0, r: 2 }}
             />
           </LineChart>
         </ResponsiveContainer>
