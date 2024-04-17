@@ -1,5 +1,5 @@
 import ChartBox from "@components/ChartBox/ChartBox";
-import SelectBar from "@components/SelectBar";
+import SelectBar from "@components/SelectBar/SelectBar";
 import { Container } from "@radix-ui/themes";
 import { MultiValue } from "react-select";
 import { useState } from "react";
