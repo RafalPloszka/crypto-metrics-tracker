@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Flex, Text } from "@radix-ui/themes";
+import { Flex, SegmentedControl, Text } from "@radix-ui/themes";
 import {
   LineChart,
   Line,
@@ -8,6 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  Label,
 } from "recharts";
 import { ChartData } from "./types";
 
@@ -18,8 +19,8 @@ interface Chart {
 const Chart = ({ data }: Chart) => {
   const [granularity, setGranularity] = useState<number>(1);
 
-  const handleGranularityChange = (weeks: number) => {
-    setGranularity(weeks);
+  const handleGranularityChange = (weeks: string) => {
+    setGranularity(Number(weeks));
   };
 
   const renderDataWithGranularity = () => {
@@ -39,34 +40,20 @@ const Chart = ({ data }: Chart) => {
 
   return (
     <div>
-      <Text size="2">Change granularity:</Text>
+      <Text size="2">Granularity:</Text>
       <Flex gap="2">
-        <Button
-          onClick={() => handleGranularityChange(1)}
+        <SegmentedControl.Root
+          defaultValue="1"
+          onValueChange={handleGranularityChange}
           size="1"
-          variant="outline"
-          disabled={granularity === 1}
         >
-          1 Week
-        </Button>
-        <Button
-          onClick={() => handleGranularityChange(2)}
-          size="1"
-          variant="outline"
-          disabled={granularity === 2}
-        >
-          2 Weeks
-        </Button>
-        <Button
-          onClick={() => handleGranularityChange(4)}
-          size="1"
-          variant="outline"
-          disabled={granularity === 4}
-        >
-          4 Weeks
-        </Button>
+          <SegmentedControl.Item value="1">1 week</SegmentedControl.Item>
+          <SegmentedControl.Item value="2">2 weeks</SegmentedControl.Item>
+          <SegmentedControl.Item value="4">4 weeks</SegmentedControl.Item>
+        </SegmentedControl.Root>
       </Flex>
       <LineChart width={800} height={400} data={renderDataWithGranularity()}>
+        <Label>TG Growth Index</Label>
         <CartesianGrid strokeDasharray="2 2" />
         <XAxis dataKey="date" />
         <YAxis />
