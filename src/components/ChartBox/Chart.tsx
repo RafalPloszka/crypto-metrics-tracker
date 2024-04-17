@@ -54,7 +54,7 @@ const Chart = ({ data, compareWith }: ChartProps) => {
 
   return (
     <Box minHeight="200px">
-      <Heading as="h2" size="5">
+      <Heading as="h2" size="5" align="center">
         TG Growth Index
       </Heading>
 
