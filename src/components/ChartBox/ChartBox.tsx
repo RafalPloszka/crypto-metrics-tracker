@@ -3,8 +3,7 @@ import useSWR, { SWRResponse } from "swr";
 import Chart from "./Chart";
 import { RawMetricData, ChartData, RequestBody } from "./types";
 
-const API_URL =
-  "https://api.tokenguard.io/db-api/growth-index/basic-timeline-data";
+const API_URL = "/api/data";
 
 const transformDataForChart = (data?: RawMetricData): ChartData[] => {
   if (!data) {
