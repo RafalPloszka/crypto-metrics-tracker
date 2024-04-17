@@ -1,5 +1,5 @@
 import Select, { MultiValue } from "react-select";
-import { Flex, Box, Text, Button } from "@radix-ui/themes";
+import { Flex, Box, Text } from "@radix-ui/themes";
 import { Option, OptionsGroup } from "types";
 
 const ethereumOption: Option = { value: "ethereum", label: "Ethereum" };
@@ -96,8 +96,6 @@ const SelectBar = ({
           isOptionDisabled={(option: Option) => !!option.isDisabled}
         />
       </Box>
-
-      <Button size="2">Compare</Button>
     </Flex>
   );
 };
