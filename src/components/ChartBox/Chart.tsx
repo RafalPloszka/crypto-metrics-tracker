@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button, Flex, Text } from "@radix-ui/themes";
 import {
-  Brush,
   LineChart,
   Line,
   XAxis,
@@ -85,7 +84,6 @@ const Chart = ({ data }: Chart) => {
           name="Solana"
           stroke="#14F195"
         />
-        <Brush height={10} />
       </LineChart>
     </div>
   );
