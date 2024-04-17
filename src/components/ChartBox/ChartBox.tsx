@@ -61,7 +61,12 @@ const ChartBox = ({ params }: { params: RequestBody }) => {
 
   return (
     <Box mt="6">
-      {data ? <Chart data={transformDataForChart(data)} /> : null}
+      {data ? (
+        <Chart
+          data={transformDataForChart(data)}
+          compareWith={params.compareWith}
+        />
+      ) : null}
     </Box>
   );
 };

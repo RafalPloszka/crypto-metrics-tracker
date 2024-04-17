@@ -13,11 +13,24 @@ import {
 } from "recharts";
 import { ChartData } from "./types";
 
-interface Chart {
-  data: ChartData[];
+function capitalizeString(str: string): string {
+  if (str.length === 0) return str;
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-const Chart = ({ data }: Chart) => {
+const renderCompareWithLabel = (values: string[]) => {
+  if (values.length === 1) {
+    return capitalizeString(values[0]);
+  }
+  return "Cumulative";
+};
+
+interface ChartProps {
+  data: ChartData[];
+  compareWith: string[];
+}
+
+const Chart = ({ data, compareWith }: ChartProps) => {
   const [granularity, setGranularity] = useState<number>(1);
 
   const handleGranularityChange = (weeks: string) => {
@@ -79,7 +92,7 @@ const Chart = ({ data }: Chart) => {
             <Line
               type="monotone"
               dataKey="cumulativeValue"
-              name="Solana"
+              name={renderCompareWithLabel(compareWith)}
               stroke="#65BA74"
               dot={false}
             />
