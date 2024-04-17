@@ -1,4 +1,4 @@
-import { Box, Text } from "@radix-ui/themes";
+import { Box, Skeleton, Text } from "@radix-ui/themes";
 import useSWR, { SWRResponse } from "swr";
 import Chart from "./Chart";
 import { RawMetricData, ChartData, RequestBody } from "./types";
@@ -6,7 +6,11 @@ import { RawMetricData, ChartData, RequestBody } from "./types";
 const API_URL =
   "https://api.tokenguard.io/db-api/growth-index/basic-timeline-data";
 
-const transformDataForChart = (data: RawMetricData): ChartData[] => {
+const transformDataForChart = (data?: RawMetricData): ChartData[] => {
+  if (!data) {
+    return [];
+  }
+
   const ethereumData = data.blockchain.tg_growth_index;
   const cumulativeData = data.cumulative.tg_growth_index;
 
@@ -51,22 +55,18 @@ const ChartBox = ({ params }: { params: RequestBody }) => {
     ([url, params]) => fetcher(url, params)
   );
 
-  if (isLoading) {
-    return <Text>Loading...</Text>;
-  }
-
   if (error) {
     return <Text color="ruby">Error fetching data</Text>;
   }
 
   return (
     <Box mt="6">
-      {data ? (
+      <Skeleton loading={isLoading}>
         <Chart
           data={transformDataForChart(data)}
           compareWith={params.compareWith}
         />
-      ) : null}
+      </Skeleton>
     </Box>
   );
 };
