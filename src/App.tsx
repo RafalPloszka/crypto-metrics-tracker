@@ -3,9 +3,11 @@ import MetricsWrapper from "@components/MetricsWrapper";
 
 function App() {
   return (
-    <Flex align="center" justify="center" height="100vh">
-      <Box minHeight="50%">
-        <Heading mb="3">Crypto metrics tracker</Heading>
+    <Flex align="center" justify="center" pt={{ initial: "6", lg: "9" }} px="2">
+      <Box width="100%" minHeight="50%">
+        <Heading size="8" mb="8" align="center">
+          Crypto metrics tracker
+        </Heading>
         <MetricsWrapper />
       </Box>
     </Flex>

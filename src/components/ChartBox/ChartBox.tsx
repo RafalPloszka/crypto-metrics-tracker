@@ -1,4 +1,4 @@
-import { Card, Text } from "@radix-ui/themes";
+import { Box, Text } from "@radix-ui/themes";
 import useSWR, { SWRResponse } from "swr";
 import Chart from "./Chart";
 import { RawMetricData, ChartData, RequestBody } from "./types";
@@ -60,9 +60,9 @@ const ChartBox = ({ params }: { params: RequestBody }) => {
   }
 
   return (
-    <Card size="4" mt="3">
+    <Box mt="6">
       {data ? <Chart data={transformDataForChart(data)} /> : null}
-    </Card>
+    </Box>
   );
 };
 

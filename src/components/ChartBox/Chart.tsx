@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Flex, SegmentedControl, Text } from "@radix-ui/themes";
+import { Box, Flex, Heading, SegmentedControl, Text } from "@radix-ui/themes";
 import {
   LineChart,
   Line,
@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
   Label,
+  ResponsiveContainer,
 } from "recharts";
 import { ChartData } from "./types";
 
@@ -39,40 +40,53 @@ const Chart = ({ data }: Chart) => {
   };
 
   return (
-    <div>
-      <Text size="2">Granularity:</Text>
-      <Flex gap="2">
-        <SegmentedControl.Root
-          defaultValue="1"
-          onValueChange={handleGranularityChange}
-          size="1"
-        >
-          <SegmentedControl.Item value="1">1 week</SegmentedControl.Item>
-          <SegmentedControl.Item value="2">2 weeks</SegmentedControl.Item>
-          <SegmentedControl.Item value="4">4 weeks</SegmentedControl.Item>
-        </SegmentedControl.Root>
-      </Flex>
-      <LineChart width={800} height={400} data={renderDataWithGranularity()}>
-        <Label>TG Growth Index</Label>
-        <CartesianGrid strokeDasharray="2 2" />
-        <XAxis dataKey="date" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Line
-          type="monotone"
-          dataKey="ethereumValue"
-          name="Ethereum"
-          stroke="#37367b"
-        />
-        <Line
-          type="monotone"
-          dataKey="cumulativeValue"
-          name="Solana"
-          stroke="#14F195"
-        />
-      </LineChart>
-    </div>
+    <Box minHeight="200px">
+      <Heading as="h2" size="5">
+        TG Growth Index
+      </Heading>
+
+      <Box my="4">
+        <Text size="2">Granularity:</Text>
+        <Flex gap="2">
+          <SegmentedControl.Root
+            defaultValue="1"
+            onValueChange={handleGranularityChange}
+            size="1"
+          >
+            <SegmentedControl.Item value="1">1 week</SegmentedControl.Item>
+            <SegmentedControl.Item value="2">2 weeks</SegmentedControl.Item>
+            <SegmentedControl.Item value="4">4 weeks</SegmentedControl.Item>
+          </SegmentedControl.Root>
+        </Flex>
+      </Box>
+
+      <Box style={{ marginLeft: "-24px" }}>
+        <ResponsiveContainer width="100%" height="100%" minHeight="250px">
+          <LineChart data={renderDataWithGranularity()}>
+            <Label>TG Growth Index</Label>
+            <CartesianGrid strokeDasharray="2 2" />
+            <XAxis dataKey="date" tick={{ fontSize: 10 }} minTickGap={20} />
+            <YAxis tick={{ fontSize: 12 }} />
+            <Tooltip />
+            <Legend height={16} />
+            <Line
+              type="monotone"
+              dataKey="ethereumValue"
+              name="Ethereum"
+              stroke="#37367b"
+              dot={false}
+            />
+            <Line
+              type="monotone"
+              dataKey="cumulativeValue"
+              name="Solana"
+              stroke="#65BA74"
+              dot={false}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </Box>
+    </Box>
   );
 };
 

@@ -65,8 +65,19 @@ const SelectBar = ({
   handleDateRangeChange,
 }: SelectBarProps) => {
   return (
-    <Flex gap="8" align="center">
-      <Box width="200px">
+    <Flex
+      gap={{
+        initial: "4",
+        lg: "8",
+      }}
+      justify="center"
+      align="center"
+      direction={{
+        initial: "column",
+        md: "row",
+      }}
+    >
+      <Box width={{ initial: "100%", lg: "300px" }}>
         <Text>Blockchain</Text>
         <Select
           value={selectedBlockchain}
@@ -76,7 +87,7 @@ const SelectBar = ({
         />
       </Box>
 
-      <Box width="200px">
+      <Box width={{ initial: "100%", lg: "300px" }}>
         <Text>Compare with</Text>
         <Select
           value={selectedComparisons}
@@ -87,7 +98,7 @@ const SelectBar = ({
         />
       </Box>
 
-      <Box width="200px">
+      <Box width={{ initial: "100%", lg: "300px" }}>
         <Text>Date range</Text>
         <Select
           value={selectedDateRange}
