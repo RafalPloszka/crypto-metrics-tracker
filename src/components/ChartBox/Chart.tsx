@@ -38,14 +38,12 @@ const Chart = ({ data, compareWith }: ChartProps) => {
   };
 
   const renderDataWithGranularity = () => {
-    if (granularity === undefined) {
-      return data;
-    }
-
     const filteredData = data.filter((_item, index) => {
+      // If granularity is 1 (show every data point), return true for all data points
       if (granularity === 1) {
         return true;
       }
+      // For other granularities, return true only for data points where the index is a multiple of the granularity
       return index % granularity === 0;
     });
 
