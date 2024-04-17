@@ -61,7 +61,6 @@ const ChartBox = ({ params }: { params: RequestBody }) => {
 
   return (
     <Card size="4" mt="3">
-      {/* TODO: Add chart here */}
       {data ? <Chart data={transformDataForChart(data)} /> : null}
     </Card>
   );

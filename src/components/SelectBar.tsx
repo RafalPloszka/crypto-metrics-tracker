@@ -1,26 +1,15 @@
 import Select, { MultiValue } from "react-select";
 import { Flex, Box, Text, Button } from "@radix-ui/themes";
-import { useState } from "react";
+import { Option, OptionsGroup } from "types";
 
-interface Option {
-  value: string;
-  label: string;
-  isDisabled?: boolean;
-}
+const ethereumOption: Option = { value: "ethereum", label: "Ethereum" };
 
-interface OptionsGroup {
-  label?: string;
-  options: Option[];
-}
-
-const ethereumOption: Option = { value: "eth", label: "Ethereum" };
-
-const solanaOption: Option = { value: "sol", label: "Solana" };
+const solanaOption: Option = { value: "solana", label: "Solana" };
 
 const comingSoonOptions: Option[] = [
-  { value: "avax", label: "Avalanche", isDisabled: true },
-  { value: "BSC", label: "BSC", isDisabled: true },
-  { value: "atom", label: "Cosmos", isDisabled: true },
+  { value: "avalanche", label: "Avalanche", isDisabled: true },
+  { value: "bsc", label: "BSC", isDisabled: true },
+  { value: "cosmos", label: "Cosmos", isDisabled: true },
 ];
 
 const comingSoonOptionsGroup: OptionsGroup = {
@@ -35,7 +24,7 @@ const optionsWithEth: OptionsGroup[] = [
   comingSoonOptionsGroup,
 ];
 
-const optionsWithSol: OptionsGroup[] = [
+const compareWithOptions: OptionsGroup[] = [
   {
     options: [solanaOption],
   },
@@ -43,9 +32,9 @@ const optionsWithSol: OptionsGroup[] = [
 ];
 
 const comingSoonDateRangeOptions: Option[] = [
-  { value: "lastMonth", label: "Last month", isDisabled: true },
-  { value: "last3Months", label: "Last 3 months", isDisabled: true },
-  { value: "allTime", label: "All time", isDisabled: true },
+  { value: "last month", label: "Last month", isDisabled: true },
+  { value: "last 3months", label: "Last 3 months", isDisabled: true },
+  { value: "all", label: "All time", isDisabled: true },
 ];
 
 const comingSoonDateRangeOptionsGroup: OptionsGroup = {
@@ -54,26 +43,27 @@ const comingSoonDateRangeOptionsGroup: OptionsGroup = {
 };
 
 const dateRangeOptions: OptionsGroup[] = [
-  { options: [{ value: "lastYear", label: "Last year" }] },
+  { options: [{ value: "last year", label: "Last year" }] },
   comingSoonDateRangeOptionsGroup,
 ];
 
-const SelectBar = () => {
-  const [selectedBlockchain, setSelectedBlockchain] = useState<Option | null>(
-    null
-  );
-  const [selectedComparisons, setSelectedComparisons] = useState<Option[]>([]);
+interface SelectBarProps {
+  selectedBlockchain: Option | null;
+  handleBlockchainChange: (selectedOption: Option | null) => void;
+  selectedComparisons: Option[] | [];
+  handleComparisonsChange: (selectedOptions: MultiValue<Option>) => void;
+  selectedDateRange: Option | null;
+  handleDateRangeChange: (selectedOption: Option | null) => void;
+}
 
-  const handleBlockchainChange = (selectedOption: Option | null) => {
-    setSelectedBlockchain(selectedOption);
-  };
-
-  const handleComparisonsChange = (selectedOptions: MultiValue<Option>) => {
-    // Convert readonly array to mutable array
-    const mutableSelectedOptions: Option[] = Array.from(selectedOptions);
-    setSelectedComparisons(mutableSelectedOptions);
-  };
-
+const SelectBar = ({
+  selectedBlockchain,
+  handleBlockchainChange,
+  selectedComparisons,
+  handleComparisonsChange,
+  selectedDateRange,
+  handleDateRangeChange,
+}: SelectBarProps) => {
   return (
     <Flex gap="8" align="center">
       <Box width="200px">
@@ -91,7 +81,7 @@ const SelectBar = () => {
         <Select
           value={selectedComparisons}
           onChange={handleComparisonsChange}
-          options={optionsWithSol}
+          options={compareWithOptions}
           isOptionDisabled={(option: Option) => !!option.isDisabled}
           isMulti
         />
@@ -100,6 +90,8 @@ const SelectBar = () => {
       <Box width="200px">
         <Text>Date range</Text>
         <Select
+          value={selectedDateRange}
+          onChange={handleDateRangeChange}
           options={dateRangeOptions}
           isOptionDisabled={(option: Option) => !!option.isDisabled}
         />
