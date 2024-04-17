@@ -1,10 +1,11 @@
-import Select from "react-select";
+import Select, { MultiValue } from "react-select";
 import { Flex, Box, Text, Button } from "@radix-ui/themes";
+import { useState } from "react";
 
 interface Option {
-  readonly value: string;
-  readonly label: string;
-  readonly isDisabled?: boolean;
+  value: string;
+  label: string;
+  isDisabled?: boolean;
 }
 
 interface OptionsGroup {
@@ -58,11 +59,28 @@ const dateRangeOptions: OptionsGroup[] = [
 ];
 
 const SelectBar = () => {
+  const [selectedBlockchain, setSelectedBlockchain] = useState<Option | null>(
+    null
+  );
+  const [selectedComparisons, setSelectedComparisons] = useState<Option[]>([]);
+
+  const handleBlockchainChange = (selectedOption: Option | null) => {
+    setSelectedBlockchain(selectedOption);
+  };
+
+  const handleComparisonsChange = (selectedOptions: MultiValue<Option>) => {
+    // Convert readonly array to mutable array
+    const mutableSelectedOptions: Option[] = Array.from(selectedOptions);
+    setSelectedComparisons(mutableSelectedOptions);
+  };
+
   return (
     <Flex gap="8" align="center">
       <Box width="200px">
         <Text>Blockchain</Text>
         <Select
+          value={selectedBlockchain}
+          onChange={handleBlockchainChange}
           options={optionsWithEth}
           isOptionDisabled={(option: Option) => !!option.isDisabled}
         />
@@ -71,6 +89,8 @@ const SelectBar = () => {
       <Box width="200px">
         <Text>Compare with</Text>
         <Select
+          value={selectedComparisons}
+          onChange={handleComparisonsChange}
           options={optionsWithSol}
           isOptionDisabled={(option: Option) => !!option.isDisabled}
           isMulti
